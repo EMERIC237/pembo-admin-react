@@ -17,7 +17,7 @@ const Page = () => (
   <>
     <Head>
       <title>
-        Overview | Devias Kit
+      Pembo Admin - Dashboard
       </title>
     </Head>
     <Box
