@@ -14,6 +14,7 @@ import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIc
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { UserTable } from "src/sections/users/users-table";
+import { useRouter } from "next/router";
 const data = [
   // Mock data for users
   { id: 1, name: "John Doe", email: "john.doe@example.com" },
@@ -42,6 +43,7 @@ const Page = () => {
   const users = useUsers(page, rowsPerPage);
   const userIds = useUserIds(users);
   const userSelection = useSelection(userIds);
+  const router = useRouter();
 
   const handlePageChange = useCallback((event, value) => {
     setPage(value);
@@ -50,6 +52,10 @@ const Page = () => {
   const handleRowsPerPageChange = useCallback((event) => {
     setRowsPerPage(event.target.value);
   }, []);
+
+  const navigateToCreateUser = useCallback(() => {
+    router.push("dashboard/users/create");
+  },[router])
 
   return (
     <>
@@ -68,6 +74,7 @@ const Page = () => {
                   </SvgIcon>
                 }
                 variant="contained"
+                onClick={navigateToCreateUser}
               >
                 Add User
               </Button>

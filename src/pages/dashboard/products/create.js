@@ -24,6 +24,7 @@ const Editor = dynamic(() => import("react-draft-wysiwyg").then((mod) => mod.Edi
 });
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { useRouter } from "next/router";
 
 const ProductCreate = () => {
   const [productName, setProductName] = useState("");
@@ -40,12 +41,18 @@ const ProductCreate = () => {
 
   const [productImage, setProductImage] = useState(null);
 
-const handleImageChange = (e) => {
+  // Navigator
+  const router = useRouter();
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-        setProductImage(file);
+      setProductImage(file);
     }
-};
+  };
+  const handleCancel = () => {
+    // Redirect to the products page
+    router.back()
+  };
   const handleSubmit = () => {
     const productData = {
       name: productName,
@@ -181,7 +188,12 @@ const handleImageChange = (e) => {
 
       <Grid container spacing={3} justifyContent="flex-end">
         <Grid item>
-          <Button variant="outlined" color="secondary" style={{ marginRight: "10px" }}>
+          <Button
+            variant="outlined"
+            color="secondary"
+            style={{ marginRight: "10px" }}
+            onClick={handleCancel}
+          >
             Cancel
           </Button>
           <Button variant="contained" color="primary" onClick={handleSubmit}>
